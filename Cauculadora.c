@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <stdint.h>
 void converter(int numero,int escolha){
     int binario[32];
     int cont=0;
@@ -128,12 +128,45 @@ void converter(int numero,int escolha){
     
     
 }
+void complemento2(int numero){
+    int binario[16];
+    int cont=0;
+    int sinal=0;
+    int16_t a2 = (int16_t)numero; 
+    if(numero<0){
+        sinal++;
+        numero=abs(numero);
+    }
+    while(cont<16){
+        int resto=numero%2;
+        int resultado=numero/2;
+        printf("%d/2=%d,resto=%d\n",numero,resultado,resto);
+        numero=resultado;
+        binario[cont]=resto;
+        cont++;
+    }
+    
+    for(int i=15;i>=0;i--){
+        
+        printf("%d",binario[i]);
+        if (i % 4 == 0) printf(" "); 
+    }
+    printf("\n");
+    printf("Agora vamos inverter depois do primeiro 1 da direita esse numero binario para deixar em complemento a2: ");
+     for (int i = 15; i >= 0; i--) {
+        printf("%d", (a2 >> i) & 1);
+        if (i % 4 == 0) printf(" ");  // Adiciona espaço a cada 4 bits para leitura mais fácil
+    }
+    
+    
+    
+}
 
 int main(void){
     int numero;
     int escolha=0;
-    while(escolha!=5){
-        printf("digite:\n1-Caso queira converter decimal para base de 2.\n2-converter decimal para base de 8.\n3-de decimal para base de 16.\n4-decimal para BCD\n.");
+    while(escolha!=6){
+        printf("digite:\n1-Caso queira converter decimal para base de 2.\n2-converter decimal para base de 8.\n3-de decimal para base de 16.\n4-decimal para BCD\n5-decimal para complemento a2.\n6-)para sair.");
         scanf("%d",&escolha);
         if(escolha==1){
             printf("digite o numero que deseja converter:");
@@ -156,6 +189,11 @@ int main(void){
             converter(numero,escolha);
         }
         else if(escolha==5){
+            printf("digite o numero que deseja converter:");
+            scanf("%d",&numero);
+            complemento2(numero);
+        }
+        else if(escolha==6){
             break;
         }
     }
